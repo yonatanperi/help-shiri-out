@@ -1,0 +1,60 @@
+{% extends "main/header.html" %}
+
+{% block content %}
+
+<br>
+<br>
+<br>
+<form method="POST" enctype="multipart/form-data">
+    {% csrf_token %}
+  <div class="row center-align">
+    <div class="col s12">
+      <div class="card black lighten-4">
+        <div class="card-content white-text">
+          <span class="card-title center-align">קובץ סגירת הרשמה</span>
+            <br>
+          <p class="right-align">בבקשה צרפו על ידי הכפתור את קובץ סגירת ההרשמה. מדובר על הקובץ המסריח והמגעיל שיוצא מהמסע</p>
+        </div>
+        <div class="card-action">
+            <input class="waves-effect waves-light btn-large purple lighten-2" type="file" name="myfile" accept=".xls">
+        </div>
+      </div>
+    </div>
+  </div>
+
+    <div class="input-field col s12">
+      <input name="age" type="text" id="age" class="autocomplete">
+      <label for="age">שכבה (רק את האות)</label>
+  </div>
+
+<ul class="collection" id="list"></ul>
+
+<div class="center-align">
+    <button type="button" class="waves-effect waves-light btn col s6 purple lighten-2" onclick="addElement()">הוסף קבוצה</button>
+    <button type="submit" class="waves-effect waves-light btn col s6 purple lighten-2">סיים ותביא תטבלה</button>
+
+</div><br>
+</form>
+
+<script>
+
+function addElement(){
+    index = index + 1;
+    var ul = document.getElementById("list");
+    var li = document.createElement("li");
+    li.classList.add('collection-item');
+    li.innerHTML += `
+  <div class="input-field col s12">
+      <input type="text" name="leader${index}" id="leader${index}" class="autocomplete">
+      <label for="leader${index}">מדריך</label>
+  </div>
+  <div class="input-field col s12">
+      <textarea name="children${index}" id="children${index}" class="autocomplete" style="height: 200px;"></textarea>
+      <label for="children${index}">חניכים (בשורות נפרדות)</label>
+  </div>`;
+
+    ul.appendChild(li);
+}
+</script>
+
+{% endblock %}
