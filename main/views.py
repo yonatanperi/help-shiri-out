@@ -3,8 +3,7 @@ import os
 
 from django.core.files.storage import FileSystemStorage
 from django.http import HttpResponse
-from django.shortcuts import render, redirect
-from threading import Thread
+from django.shortcuts import render
 from .yuval_shit import TimeSaver
 import pyexcel
 
@@ -40,6 +39,7 @@ def homepage(request):
 
         # remove data
         os.remove(uploaded_file_url)
+        os.remove(uploaded_file_url[:-1])
 
         # download
         return download()
@@ -61,9 +61,3 @@ def download():
     # Set the HTTP header for sending to browser
     response['Content-Disposition'] = "attachment; filename=%s" % filename
     return response
-
-
-def thanks(request, missed=""):
-    print(missed)
-    return render(request=request,
-                  template_name="main/thanks.html")
